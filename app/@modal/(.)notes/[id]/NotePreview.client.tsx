@@ -5,10 +5,12 @@ import Modal from "@/components/Modal/Modal";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 export default function NotePreviewClient() {
   const params = useParams();
   const id = params.id as string;
+  const router = useRouter();
 
   const {
     data: note,
@@ -29,7 +31,10 @@ export default function NotePreviewClient() {
   }
 
   return (
-    <Modal>
+    <Modal onClose={() => router.back()}>
+      <button className={css.backBtn} onClick={() => router.back()}>
+        Back
+      </button>
       <main className={css.main}>
         <div className={css.container}>
           <div className={css.item}>
